@@ -47,8 +47,8 @@ RUN rm -rf /usr/share/nginx/html/* \
 
 # Copy your nginx configs first (better layer caching)
 # Make sure these files exist in your repo and listen on 8080.
-COPY --link nginx.conf /etc/nginx/nginx.conf
-COPY --link default.conf /etc/nginx/conf.d/default.conf
+COPY  nginx.conf /etc/nginx/nginx.conf
+COPY  default.conf /etc/nginx/conf.d/default.conf
 
 # Copy static site content with correct ownership
 COPY --chown=nginx:nginx --from=prep /src/ /usr/share/nginx/html/
