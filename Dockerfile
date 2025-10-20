@@ -51,7 +51,7 @@ COPY --link nginx.conf /etc/nginx/nginx.conf
 COPY --link default.conf /etc/nginx/conf.d/default.conf
 
 # Copy static site content with correct ownership
-COPY --link --chown=nginx:nginx --from=prep /src/ /usr/share/nginx/html/
+COPY --chown=nginx:nginx --from=prep /src/ /usr/share/nginx/html/
 
 USER nginx
 ENV PORT=8080
