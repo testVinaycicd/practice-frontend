@@ -33,6 +33,9 @@ WORKDIR /src
 # Copy only what you want to serve (adjust globs/paths as needed)
 # Example assumes your static files live at repo root (index.html, assets/, etc.)
 COPY . .
+
+COPY  nginx.conf /etc/nginx/nginx.conf
+COPY  default.conf /etc/nginx/conf.d/default.conf
 # If you have extra files you DON'T want to ship, remove them here, e.g.:
 # RUN rm -rf README.md docs/ scripts/ .github/ .vscode/
 
@@ -47,8 +50,7 @@ RUN rm -rf /usr/share/nginx/html/* \
 
 # Copy your nginx configs first (better layer caching)
 # Make sure these files exist in your repo and listen on 8080.
-COPY  nginx.conf /etc/nginx/nginx.conf
-COPY  default.conf /etc/nginx/conf.d/default.conf
+
 
 # Copy static site content with correct ownership
 COPY --chown=nginx:nginx --from=prep /src/ /usr/share/nginx/html/
