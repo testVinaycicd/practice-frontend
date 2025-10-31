@@ -1,0 +1,37 @@
+name: 🧪 Test Self-Hosted Runner
+
+on:
+  workflow_dispatch:    # manual trigger in GitHub Actions UI
+  push:
+    branches: [ main ]
+
+jobs:
+  self_hosted_test:
+    name: Verify Runner Setup
+    runs-on: self-hosted   # must match the label on your runner (default = self-hosted)
+    steps:
+      - name: 🧩 Show runner info
+        run: |
+          echo "✅ Runner is online!"
+          echo "User: $(whoami)"
+          echo "Host: $(hostname)"
+          echo "OS: $(cat /etc/os-release | grep PRETTY_NAME)"
+          echo "Work dir: $PWD"
+          echo "Labels: ${{ runner.labels }}"
+
+      - name: 🧠 Check basic tooling
+        run: |
+          echo "Git version:"
+          git --version
+          echo "Docker version:"
+          docker --version || echo "Docker not installed"
+          echo "Ansible version:"
+          ansible --version || echo "Ansible not installed"
+
+      - name: 🧰 Verify network access
+        run: |
+          curl -s -o /dev/null -w "%{http_code}\n" https://api.github.com
+          ping -c 2 github.com || true
+
+      - name: ✅ Success message
+        run: echo "🎉 Self-hosted runner is working properly!"
