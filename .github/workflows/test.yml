@@ -2,8 +2,7 @@ name: 🧪 Test Self-Hosted Runner
 
 on:
   workflow_dispatch:    # manual trigger in GitHub Actions UI
-  push:
-    branches: [ main ]
+
 
 jobs:
   self_hosted_test:
